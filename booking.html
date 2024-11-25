@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Management System - Booking Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #4facfe;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .header #userNameDisplay {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+            flex: 1;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .navbar .active {
+            background-color: #575757;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .container h2 {
+            color: #333;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        button {
+            background-color: #4facfe;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 200px;
+            align-self: center;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0066cc;
+        }
+
+        .readonly {
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Parcel Management System</h1>
+        <div id="userNameDisplay"></div>  <!-- Display user name here -->
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="home.html">Home</a>
+        <a href="booking.html" class="active">Booking Service</a>
+        <a href="tracking.html">Tracking</a>
+        <a href="previous-booking.html">Previous Booking</a>
+        <a href="support.html">Contact Support</a>
+        <a href="logout.html">Logout</a>
+    </div>
+
+    <!-- Booking Form Container -->
+    <div class="container">
+        <h2>Booking Service</h2>
+        <form id="bookingForm">
+            <!-- Sender Information -->
+            <fieldset>
+                <legend>Sender Information</legend>
+                <label for="senderName">Name</label>
+                <input type="text" id="senderName" class="readonly" readonly>
+                <label for="senderAddress">Address</label>
+                <input type="text" id="senderAddress" class="readonly" readonly>
+                <label for="senderContact">Contact</label>
+                <input type="text" id="senderContact" class="readonly" readonly>
+            </fieldset>
+
+            <!-- Receiver Information -->
+            <fieldset>
+                <legend>Receiver Information</legend>
+                <label for="receiverName">Name</label>
+                <input type="text" id="receiverName" required>
+                <label for="receiverAddress">Address</label>
+                <input type="text" id="receiverAddress" required>
+                <label for="receiverPinCode">Pin Code</label>
+                <input type="text" id="receiverPinCode" required>
+                <label for="receiverContact">Contact</label>
+                <input type="text" id="receiverContact" required>
+            </fieldset>
+
+            <!-- Parcel Details -->
+            <fieldset>
+                <legend>Parcel Details</legend>
+                <label for="parcelSize">Size and Weight</label>
+                <input type="text" id="parcelSize" required>
+                <label for="parcelDescription">Contents Description</label>
+                <textarea id="parcelDescription" required></textarea>
+            </fieldset>
+
+            <!-- Shipping Options -->
+            <fieldset>
+                <legend>Shipping Options</legend>
+                <label for="deliverySpeed">Choose Delivery Speed</label>
+                <select id="deliverySpeed" required>
+                    <option value="standard">Standard</option>
+                    <option value="express">Express</option>
+                </select>
+                <label for="packaging">Select Packaging Preferences</label>
+                <select id="packaging" required>
+                    <option value="standard">Standard Packaging</option>
+                    <option value="custom">Custom Packaging</option>
+                    <option value="eco">Eco-friendly Packaging</option>
+                    <option value="fragile">Fragile Item Handling</option>
+                </select>
+            </fieldset>
+
+            <!-- Date and Time -->
+            <fieldset>
+                <legend>Date and Time</legend>
+                <label for="pickupTime">Preferred Pickup/Drop-off Time</label>
+                <input type="datetime-local" id="pickupTime" required>
+            </fieldset>
+
+            <!-- Service Cost and Payment -->
+            <fieldset>
+                <legend>Service Cost and Payment</legend>
+                <label for="serviceCost">Service Cost</label>
+                <input type="text" id="serviceCost" class="readonly" readonly>
+                <label for="paymentMethod">Payment Method</label>
+                <select id="paymentMethod" required>
+                    <option value="credit">Credit Card</option>
+                    <option value="debit">Debit Card</option>
+                    <option value="netbanking">Net Banking</option>
+                    <option value="cod">Cash on Delivery</option>
+                </select>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <button type="submit"><a href="payment.html">Confirm Booking</a></button>
+        </form>
+    </div>
+
+    <script>
+        // Mock Sender Information
+        const mockSenderInfo = {
+            name: "Whatever",
+            address: "pune mumbai",
+            contact: "9876543210",
+        };
+
+        // Populate sender information
+        document.getElementById('senderName').value = mockSenderInfo.name;
+        document.getElementById('senderAddress').value = mockSenderInfo.address;
+        document.getElementById('senderContact').value = mockSenderInfo.contact;
+
+        // Booking form submit event
+        document.getElementById('bookingForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Booking Confirmed! Details have been submitted.');
+        });
+
+        // Dynamic cost calculation based on options
+        document.getElementById('deliverySpeed').addEventListener('change', calculateCost);
+        document.getElementById('packaging').addEventListener('change', calculateCost);
+
+        function calculateCost() {
+            let cost = 100; // Base cost
+            const speed = document.getElementById('deliverySpeed').value;
+            const packaging = document.getElementById('packaging').value;
+
+            if (speed === 'express') cost += 50;
+            if (packaging === 'custom' || packaging === 'fragile') cost += 20;
+
+            document.getElementById('serviceCost').value = `₹${cost}`;
+            localStorage.setItem('serviceCost', cost);
+        }
+
+        // Display user's name in the header
+        window.onload = function() {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if (userInfo) {
+                document.getElementById('userNameDisplay').textContent = `Welcome, ${userInfo.name}`;
+            } else {
+                document.getElementById('userNameDisplay').textContent = "Hello, Guest";
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Management System - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: #4facfe;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .welcome-message {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+            flex: 1;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background-color: #575757;
+        }
+
+        /* Main Content Area */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .container h2 {
+            color: #333;
+            font-size: 28px;
+        }
+
+        .container p {
+            font-size: 18px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #4facfe;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 200px;
+            margin: 20px 0;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0066cc;
+        }
+
+        /* Admin Options Centering */
+        .admin-options {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Parcel Management System</h1>
+        <div class="welcome-message">
+            Welcome, <span id="username"></span> (<span id="role"></span>)
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="home.html" class="active">Home</a>
+        <a href="booking.html">Booking Service</a>
+        <a href="tracking.html">Tracking</a>
+        <a href="previous-booking.html">Previous Booking</a>
+        <a href="support.html">Contact Support</a>
+        <a href="login.html" id="logoutLink">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Home Page</h2>
+        <p>You are currently on the <strong>Home</strong> page.</p>
+        <p>Use the navigation bar above to explore the Parcel Management System features.</p>
+    </div>
+
+    <!-- Admin Specific Options (Centered) -->
+    <div id="adminOptions" class="admin-options" style="display: none;">
+        <h3>Admin Options</h3>
+        <button onclick="viewOrderList()">Access Order List</button>
+        <button onclick="registerCustomer()">Register for a Customer</button>
+    </div>
+
+    <script>
+        // Retrieve user information from localStorage
+        const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+        if (storedUserInfo) {
+            // Display username and role
+            document.getElementById('username').textContent = storedUserInfo.name || 'User';
+            document.getElementById('role').textContent = storedUserInfo.role || 'User';
+
+            // Check if user is Admin and show Admin Options
+            if (storedUserInfo.role === 'Admin') {
+                document.getElementById('adminOptions').style.display = 'block';
+            }
+        } else {
+            // Redirect to login if user data is missing
+            alert("Please log in first!");
+            window.location.href = "login.html";
+        }
+
+        // Highlight active menu item
+        const currentPage = window.location.pathname.split("/").pop();
+        const navLinks = document.querySelectorAll(".navbar a");
+        navLinks.forEach(link => {
+            if (link.getAttribute("href") === currentPage || link.classList.contains('active')) {
+                link.classList.add("active");
+            }
+        });
+
+        // Logout Logic
+        const logoutLink = document.getElementById("logoutLink");
+        logoutLink.addEventListener("click", function () {
+            localStorage.removeItem("userInfo"); // Clear user data
+            alert("You have been logged out.");
+            window.location.href = "login.html";
+        });
+
+        // Admin Options Functions
+        function viewOrderList() {
+            // You can replace this with an actual redirection or show order list
+            alert("Redirecting to Order List...");
+            // window.location.href = "order-list.html";
+        }
+
+        function registerCustomer() {
+            // Redirect to customer registration page
+            window.location.href = "customer-registration.html";
+        }
+    </script>
+</body>
+</html>
